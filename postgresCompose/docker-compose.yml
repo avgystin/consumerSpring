@@ -1,0 +1,41 @@
+services:
+  db:
+    # Официальный образ PostgreSQL
+    image: postgres
+    # Автоматически перезапускать контейнер при сбоях или перезагрузке системы
+    restart: always
+    # Проброс портов: локальный порт 5432 -> порт 5432 в контейнере
+    ports:
+      - 5432:5432
+    # Лимит разделяемой памяти для улучшения производительности PostgreSQL
+    shm_size: 128mb
+    # Переменные окружения для настройки PostgreSQL
+    environment:
+      # Пароль для пользователя postgres (ОБЯЗАТЕЛЬНО измени в продакшене!)
+      POSTGRES_PASSWORD: example
+      # Имя базы данных, которая будет создана при первом запуске
+      POSTGRES_DB: mydb
+    #volumes:
+      #- postgres_data:/var/lib/postgresql/data
+
+  pgadmin:
+    # Официальный образ PgAdmin 4 - веб-интерфейс для управления PostgreSQL
+    image: dpage/pgadmin4
+    # Автоматический перезапуск
+    restart: always
+    # Проброс портов: локальный порт 8080 -> порт 80 в контейнере
+    ports:
+      - 8080:80
+    # Переменные окружения для настройки PgAdmin
+    environment:
+      # Email для входа в PgAdmin (можно указать любой)
+      PGADMIN_DEFAULT_EMAIL: admin@example.com
+      # Пароль для входа в PgAdmin (ОБЯЗАТЕЛЬНО измени в продакшене!)
+      PGADMIN_DEFAULT_PASSWORD: admin
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+      
+      
+volumes:
+  #postgres_data:
+  pgadmin_data:

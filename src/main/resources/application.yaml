@@ -1,0 +1,28 @@
+spring:
+  kafka:
+    # Настройки подключения к Kafka
+    bootstrap-servers: localhost:9092  # Адреса брокеров Kafka
+    consumer:
+      group-id: my-group               # ID группы потребителей
+      auto-offset-reset: earliest      # Чтение сообщений с начала топика
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer    # Десериализатор ключей
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer  # Десериализатор значений
+
+  datasource:
+    # Настройки подключения к PostgreSQL
+    url: jdbc:postgresql://localhost:5432/mydb  # URL базы данных
+    username: postgres                          # Имя пользователя БД
+    password: example                           # Пароль пользователя БД
+    driver-class-name: org.postgresql.Driver    # Драйвер PostgreSQL
+
+  jpa:
+    # Настройки JPA и Hibernate
+    hibernate:
+      ddl-auto: create-drop  # Автоматическое создание/удаление таблиц при запуске/остановке
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect  # Диалект PostgreSQL для Hibernate
+    show-sql: true          # Показывать SQL запросы в логах
+
+server:
+  port: 12223
